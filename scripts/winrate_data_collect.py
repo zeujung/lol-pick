@@ -89,6 +89,7 @@ def get_data(i):
 
         dd.append(match.blue_team.win)
         print('Match id {} is valid.'.format(i))
+        
     return dd
 
 
@@ -104,18 +105,23 @@ def main(args):
 
     data = []
     k=0
+    valid_id=[]
     
     for i in ids:
         try:
             dd = get_data(i)
             if len(dd)!=0:
                 data.append(dd)
+                valid_id.append(i)
             if len(data)==2000:
                 print("Making {}.pkl.".format(k))
                 with open(os.path.join('../data/', dir_name, '{}.pkl'.format(k)), 'wb') as f:
                     pkl.dump(data, f)
                 k+=1
                 data = []
+            if (len(valid_list)%100)==0:
+                with open('../data/valid_id.pkl', 'wb') as g:
+                    pkl.dump(valid_id, g)
         except:
             print('Error occured for {}'.format(i))
             continue
