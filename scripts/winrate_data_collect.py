@@ -119,7 +119,7 @@ def main(args):
                     pkl.dump(data, f)
                 k+=1
                 data = []
-            if (len(valid_list)%100)==0:
+            if (len(valid_id)%100)==0:
                 with open('../data/valid_id.pkl', 'wb') as g:
                     pkl.dump(valid_id, g)
         except:
