@@ -23,7 +23,7 @@ def get_lane(participant):
         return 'No info'
     
 def get_data(i):
-    dd = []
+    dd = [i]
     match = cass.get_match(i)
     try:
         version = match.version
@@ -105,23 +105,19 @@ def main(args):
 
     data = []
     k=0
-    valid_id=[]
     
     for i in ids:
         try:
             dd = get_data(i)
-            if len(dd)!=0:
+            if len(dd) > 1:
                 data.append(dd)
                 valid_id.append(i)
-            if len(data)==2000:
+            if len(data)==args.freq:
                 print("Making {}.pkl.".format(k))
                 with open(os.path.join('../data/', dir_name, '{}.pkl'.format(k)), 'wb') as f:
                     pkl.dump(data, f)
                 k+=1
                 data = []
-            if (len(valid_id)%100)==0:
-                with open('../data/valid_id.pkl', 'wb') as g:
-                    pkl.dump(valid_id, g)
         except:
             print('Error occured for {}'.format(i))
             continue
@@ -135,8 +131,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Data Crawling for LoL winrate prediction.'
     )
-    parser.add_argument('--start', required=True, help='root of the model', type=int)
-    parser.add_argument('--end', required=True, help='root of the model', type=int)
+    parser.add_argument('--start', required=True, help='start id', type=int)
+    parser.add_argument('--end', required=True, help='end id', type=int)
+    parser.add_argument('--freq', default=1000, help='size of pkl', type=int)
     
     args = parser.parse_args()
     
