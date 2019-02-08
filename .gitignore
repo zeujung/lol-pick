@@ -1,5 +1,4 @@
 *~
 .ipynb_checkpoints
 data/*
-!data/3492500001-3495000000
-!data/3492590390-3495000000
+!data/winrate.pkl
