@@ -62,7 +62,7 @@ def get_data(i):
             try:
                 dd.append(ban.name)
             except AttributeError:
-                dd.append('밴없음')
+                dd.append('No Ban')
                 
         for participant in match.red_team.participants :
             try:
@@ -85,7 +85,7 @@ def get_data(i):
             try:
                 dd.append(ban.name)
             except AttributeError:
-                dd.append('밴없음')
+                dd.append('No Ban')
 
         dd.append(match.blue_team.win)
         print('Match id {} is valid.'.format(i))
@@ -111,7 +111,6 @@ def main(args):
             dd = get_data(i)
             if len(dd) > 1:
                 data.append(dd)
-                valid_id.append(i)
             if len(data)==args.freq:
                 print("Making {}.pkl.".format(k))
                 with open(os.path.join('../data/', dir_name, '{}.pkl'.format(k)), 'wb') as f:
